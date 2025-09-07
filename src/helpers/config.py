@@ -8,8 +8,11 @@ class Settings(BaseSettings):
     FILE_DEFAULT_CHUNK_SIZE:int
 
 
-    MONGO_URL: str
-    MONGO_DATABASE:str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_HOST: str
+    POSTGRES_PORT:int
+    POSTGRES_MAIN_DATABASE: str
 
     class Config:
         env_file = ".env"
