@@ -1,1 +1,1 @@
-from .minirag.project import Project
+from .minirag.schemes import Project
