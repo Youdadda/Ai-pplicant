@@ -19,3 +19,11 @@ system_prompt = Template("\n".join([
     '}',
 
 ]))
+
+footer_prompt = Template("\n".join([
+    "Following the instructions you were provided with above, extaract the demanded informations from the following document: .",
+    "## Document:",
+    "$document",
+    "",
+    "## Answer:",
+]))
