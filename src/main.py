@@ -31,7 +31,10 @@ async def lifespan(app:FastAPI):
     yield
     
     
-    app.db_engine.dispose()
+    await app.db_engine.dispose()
 
 app = FastAPI(lifespan=lifespan)
+
+app.include_router(data_router)
+app.include_router(base_router)
 
