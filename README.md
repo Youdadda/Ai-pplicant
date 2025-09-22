@@ -1,4 +1,5 @@
-Hello to the Self-RAG, this is a project meant to make a digital version of you, it gets as real as the amount of data source you give it.
+Welcome to the Ai-pplicant project repository, for this project i aim to make the boring tasks as automatic as possible, for now i'm working on the cv to tweak it's contents to match the job requirements for a given post.
+Wanna build it on ur machine ? Follow the following instructions:
 
 ## Create your own digital version
 1) Create the environment:
