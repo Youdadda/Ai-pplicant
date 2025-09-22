@@ -18,3 +18,11 @@ system_prompt = Template("\n".join([
     "\"recruiter_email\": \"...\"",
     '}',
 ]))
+
+footer_prompt = Template("\n".join([
+    "En suivant les instructions qui vous ont été fournies ci-dessus, extrayez les informations demandées du document suivant :",
+    "## Document :",
+    "$document",
+    "",
+    "## Réponse :",
+]))

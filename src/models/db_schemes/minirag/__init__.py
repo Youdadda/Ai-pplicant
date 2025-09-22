@@ -1,1 +1,1 @@
-from .schemes import Asset, Project, sqlbase, Chunk
+from .schemes import Asset, User, sqlbase, jobposting, Experience

@@ -18,7 +18,7 @@ class TemplateParser:
         else:
             self.language = self.default_language
 
-    def get(self, group:str, key:str, vars:dict={}, processor:bool=False):
+    def get(self, group:str, key:str, vars:dict={}):
         if not group or not key:
             return None
         
@@ -31,10 +31,8 @@ class TemplateParser:
             return None
         
         # import group module 
-        if processor:
-            module = __import__(f"stores.llm.templates.processor.{targeted_language}.{group}", fromlist=[group])
-        else:
-            module = __import__(f"stores.llm.templates.locales.{targeted_language}.{group}", fromlist=[group])
+        module = __import__(f"stores.llm.templates.locales.{targeted_language}.{group}", fromlist=[group])
+
         if not module:
             return None
         

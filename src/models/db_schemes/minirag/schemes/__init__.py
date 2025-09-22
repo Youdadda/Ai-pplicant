@@ -1,4 +1,5 @@
 from .Asset import Asset
-from .project import Project
+from .user import User
 from .minirag_base import sqlbase
-from .Chunk import Chunk
+from .jobposting import jobposting
+from .Experience import Experience

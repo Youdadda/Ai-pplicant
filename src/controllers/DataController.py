@@ -2,7 +2,7 @@ from .BaseController import BaseController
 import os
 from fastapi import UploadFile
 from models.enums import ResponseSignal, FileUploadEnum
-from .ProjectController import ProjectController
+from .UserController import UserController
 import re
 
 class DataController(BaseController):
@@ -11,33 +11,43 @@ class DataController(BaseController):
         self.size_scale = 1048576 ## 1 MB in bytes
 
     
-    def validate_the_file_extension(self, file:UploadFile):
-        if file.content_type not in self.app_settings.FILE_ALLOWED_TYPES:
-            return False, ResponseSignal.FILE_EXTENSION_UNSUPPORTED.value
+    def validate_jobposting_file_extension(self, file:UploadFile):
+        if file.content_type not in self.app_settings.POSTING_ALLOWED_TYPES:
+            return False, ResponseSignal.POSTING_EXTENSION_UNSUPPORTED.value
         
-        if file.size > self.app_settings.FILE_SIZE_MAX * self.size_scale:
-            return False, ResponseSignal.FILE_SIZE_EXCEEDED.value 
+        if file.size > self.app_settings.POSTING_SIZE_MAX * self.size_scale:
+            return False, ResponseSignal.POSTING_SIZE_EXCEEDED.value 
         
-        return True, ResponseSignal.FILE_VALIDATION_SUCESS.value
+        return True, ResponseSignal.POSTING_VALIDATION_SUCESS.value
     
-    def generate_unique_filepath(self, orig_file_name: str, project_id: str):
+
+    def validate_experience_file_extension(self, file:UploadFile):
+        if file.content_type not in self.app_settings.EXPERIENCE_ALLOWED_TYPES:
+            return False, ResponseSignal.EXPERIENCE_EXTENSION_UNSUPPORTED.value
+        if file.size > self.app_settings.EXPERIENCE_SIZE_MAX * self.size_scale:
+            return False, ResponseSignal.EXPERIENCE_SIZE_EXCEEDED.value 
+        
+        return True, ResponseSignal.EXPERIENCE_VALIDATION_SUCESS.value
+
+
+    def generate_unique_path(self, orig_file_name: str, user_id: str, posting:bool):
 
         random_key = self.generate_random_string()
-        project_path = ProjectController().get_project_path(project_id=project_id)
+        user_path = UserController().get_user_path(user_id=user_id, posting=posting)
 
         cleaned_file_name = self.get_clean_file_name(
             orig_file_name=orig_file_name
         )
 
         new_file_path = os.path.join(
-            project_path,
+            user_path,
             random_key + "_" + cleaned_file_name
         )
 
         while os.path.exists(new_file_path):
             random_key = self.generate_random_string()
             new_file_path = os.path.join(
-                project_path,
+                user_path,
                 random_key + "_" + cleaned_file_name
             )
 
