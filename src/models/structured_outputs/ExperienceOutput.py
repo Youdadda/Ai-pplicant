@@ -5,6 +5,7 @@ from typing import Optional, List
 class Experience(BaseModel):
     job_title: str
     company: str
+    experience_type: str
     start_date: Optional[str] = None
     end_date: Optional[str] = None
     skills: List[str]

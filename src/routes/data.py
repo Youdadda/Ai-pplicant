@@ -279,10 +279,11 @@ async def process(request: Request, user_id:int, process_request: ProcessingRequ
                     section_type = "experience", ## to be changed later for more general use_case 
                     title = experience.get("job_title"),
 
-                    company = experience.get("company"),
+                    company = None if experience.get("experience_type") == "personal_project" else experience.get("company"),
                     skills = experience.get("skills"),
                     start_date = None if not experience.get("start_date") else experience.get("start_date"),
                     end_date = None if not experience.get("end_date") else experience.get("end_date"),
+                    description= experience.get("experience_type"),
                     experience_metadata = process_metadata,
                     experience_asset_id = asset_id,
                     experience_user_id = user_id
