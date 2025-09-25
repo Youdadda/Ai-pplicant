@@ -1,16 +1,16 @@
 from .BaseDataModel import BaseDataModel
-from .db_schemes.minirag import jobposting
+from .db_schemes.minirag import Jobposting
 from sqlalchemy import delete
 from sqlalchemy.future import select
 from bson.objectid import ObjectId
-class jobpostingModel(BaseDataModel):
+class JobpostingModel(BaseDataModel):
 
     def __init__(self, db_client):
         self.db_client = db_client
 
 
     
-    async def create_jobposting(self, jobposting : jobposting):
+    async def create_jobposting(self, jobposting : Jobposting):
 
         async with self.db_client() as session:
             async with session.begin():
@@ -22,7 +22,7 @@ class jobpostingModel(BaseDataModel):
     
     async def get_jobposting(self, jobposting_id:str):
         async with self.db_client() as session:
-                jobposting_sql = select(jobposting).where(jobposting.jobposting_id == jobposting_id)
+                jobposting_sql = select(Jobposting).where(Jobposting.jobposting_id == jobposting_id)
 
                 result = await session.execute(jobposting_sql)
 
@@ -45,7 +45,7 @@ class jobpostingModel(BaseDataModel):
     async def delete_jobpostings_by_user_id(self, user_id:ObjectId):
         async with self.db_client() as session:
             async with session.begin():
-                deletion_by_proj = delete(jobposting).where(jobposting.jobposting_user_id == user_id)
+                deletion_by_proj = delete(Jobposting).where(Jobposting.jobposting_user_id == user_id)
                 result = await session.execute(deletion_by_proj)
             await session.commit()
             
@@ -54,7 +54,7 @@ class jobpostingModel(BaseDataModel):
 
     async def get_user_jobpostings(self, user_id: int, page_no:int=1, page_size: int=50 ):
         async with self.db_client() as session:
-            stmt = select(jobposting).where(jobposting.jobposting_user_id == user_id).offset((page_no - 1) * page_size).limit(page_size)
+            stmt = select(Jobposting).where(Jobposting.jobposting_user_id == user_id).offset((page_no - 1) * page_size).limit(page_size)
             result = await session.execute(stmt)
             records = result.scalars().all()
 

@@ -5,7 +5,7 @@ from sqlalchemy.dialects.postgresql import UUID, JSONB
 import uuid
 
 
-class jobposting(sqlbase):
+class Jobposting(sqlbase):
     __tablename__ = "jobpostings"
     
     jobposting_id = Column(Integer, primary_key=True, autoincrement=True)

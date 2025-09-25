@@ -17,5 +17,5 @@ class User(sqlbase):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now(), nullable=True)
 
     assets = relationship("Asset", back_populates="user")
-    jobposting = relationship("jobposting", back_populates="user")
+    jobposting = relationship("Jobposting", back_populates="user")
     experiences = relationship("Experience", back_populates="user")

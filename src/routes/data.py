@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Request, File, UploadFile, Depends, status
 from fastapi.responses import JSONResponse
 from helpers.config import get_settings, Settings
-from models import UserModel, AssetModel, jobpostingModel, ExperienceModel
+from models import UserModel, AssetModel, JobpostingModel, ExperienceModel
 from controllers import DataController, UserController, ProcessController
 import aiofiles
 import logging
 from models.enums import ResponseSignal, AssetTypeEnum
 from routes.schemes import ProcessingRequest
-from models.db_schemes.minirag import Asset, jobposting, Experience
+from models.db_schemes.minirag import Asset, Jobposting, Experience
 import os
 import json 
 
@@ -241,9 +241,7 @@ async def process(request: Request, user_id:int, process_request: ProcessingRequ
             
             return JSONResponse(
                 content=
-                    json.loads(
-                json.dumps(processed_post_infos, default= lambda x:x.__dict__)
-                )
+                    {"job_posting_id": file_data_jobpostings_records[0].jobposting_id}
                 
         )
         else:
