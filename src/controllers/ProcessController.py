@@ -4,9 +4,8 @@ import os
 from models.enums import FileUploadEnum
 from langchain_community.document_loaders.text import TextLoader
 from langchain_community.document_loaders.pdf import PyMuPDFLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 import json
-from models import ExperienceResponse
+from models import ExperienceResponse, JobPostingResponse
 
 
 class ProcessController(BaseController):
@@ -77,7 +76,7 @@ class ProcessController(BaseController):
                 "document":file_contents_text
             })
         
-        response_format = None if self.posting else ExperienceResponse
+        response_format = JobPostingResponse if self.posting else ExperienceResponse
 
 
         answer = self.process_client.generate_text(

@@ -187,25 +187,6 @@ async def process(request: Request, user_id:int, process_request: ProcessingRequ
                     
                 }
             )
-    # else:
-    #     asset_recrods = await asset_model.get_all_user_assets(
-    #         asset_user_id=user.user_id,
-    #         asset_type= AssetTypeEnum.FILE.value
-
-    #     )
-    #     user_file_ids= {
-    #         rec.asset_id : rec.asset_name
-    #         for rec in asset_recrods
-    #     }
-
-    #     if len(user_file_ids) == 0 :
-    #         return JSONResponse(
-    #             status_code=status.HTTP_400_BAD_REQUEST,
-    #             content={
-    #                 "signal":ResponseSignal.NO_FILES_ERROR.value
-                    
-    #             }
-    #         ) 
     
     process_controller = ProcessController(
         user_id= user.user_id,
@@ -233,6 +214,8 @@ async def process(request: Request, user_id:int, process_request: ProcessingRequ
             file_content=file_content,
         )
         if process_request.posting:
+            processed_post_infos = processed_post_infos.model_dump()
+
             if processed_post_infos is None or len(processed_post_infos) == 0:
                 return JSONResponse(
                     status_code=status.HTTP_400_BAD_REQUEST,
@@ -241,7 +224,7 @@ async def process(request: Request, user_id:int, process_request: ProcessingRequ
                         
                     }
                 ) 
-
+            print(processed_post_infos)
             file_data_jobpostings_records = [
                 jobposting(
                     job_title = processed_post_infos.get('title'),

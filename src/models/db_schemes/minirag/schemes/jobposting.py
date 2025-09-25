@@ -18,9 +18,11 @@ class jobposting(sqlbase):
     post_metadata = Column(JSONB, nullable=True)
 
     jobposting_user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
+    jobposting_asset_id = Column(Integer, ForeignKey("assets.asset_id"), nullable= False)
 
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     updated_at = Column(DateTime(timezone=True), onupdate=func.now(), nullable=True)
 
 
     user = relationship("User", back_populates="jobposting")
+    asset = relationship("Asset", back_populates="jobposting")

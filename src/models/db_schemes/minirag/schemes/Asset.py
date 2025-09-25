@@ -24,3 +24,4 @@ class Asset(sqlbase):
 
     user = relationship("User", back_populates="assets")
     experiences = relationship("Experience", back_populates="asset")
+    jobposting = relationship("jobposting", back_populates="asset")
