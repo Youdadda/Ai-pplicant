@@ -195,7 +195,7 @@ async def process(request: Request, user_id:int, process_request: ProcessingRequ
         posting=process_request.posting)
 
     if process_request.posting:
-        jobposting_model = jobpostingModel(
+        jobposting_model = JobpostingModel(
             db_client= request.app.db_client
         )
     else:
@@ -226,7 +226,7 @@ async def process(request: Request, user_id:int, process_request: ProcessingRequ
                 ) 
             print(processed_post_infos)
             file_data_jobpostings_records = [
-                jobposting(
+                Jobposting(
                     job_title = processed_post_infos.get('title'),
                     company_name = processed_post_infos.get("company"),
                     skills = processed_post_infos.get("skills"),
@@ -259,12 +259,12 @@ async def process(request: Request, user_id:int, process_request: ProcessingRequ
                 Experience(
                     section_type = "experience", ## to be changed later for more general use_case 
                     title = experience.get("job_title"),
-
+                    description = experience.get("description"),
                     company = None if experience.get("experience_type") == "personal_project" else experience.get("company"),
                     skills = experience.get("skills"),
                     start_date = None if not experience.get("start_date") else experience.get("start_date"),
                     end_date = None if not experience.get("end_date") else experience.get("end_date"),
-                    description= experience.get("experience_type"),
+                    experience_type= experience.get("experience_type"),
                     experience_metadata = process_metadata,
                     experience_asset_id = asset_id,
                     experience_user_id = user_id

@@ -9,6 +9,7 @@ system_prompt = Template("\n".join([
     '  {',
     '    "job_title": "...",',
     '    "company": "...", should be none if exprience_type is personal_project',
+    '    "description" : "...", should be the description of the personal or the professional experience  ',
     '    "experience_type": "...", limit yourself to one of these three: ["internship", "full_time", "personal_project"]',
     '    "start_date": "...",',
     '    "end_date": "...",',
@@ -27,7 +28,7 @@ system_prompt = Template("\n".join([
 ]))
 
 footer_prompt = Template("\n".join([
-    "Following the instructions you were provided with above, extaract the demanded informations from the following document: .",
+    "Following the instructions you were provided with above, extract the demanded informations from the following document: .",
     "## Document:",
     "$document",
     "",

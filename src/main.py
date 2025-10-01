@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes import base_router, data_router
+from routes import base_router, data_router, suggestion_router
 from helpers.config import get_settings
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
@@ -23,7 +23,8 @@ async def lifespan(app:FastAPI):
     
     app.process_client = llm_provider_factory.create(provider=settings.GENERATION_PROVIDER)
     app.process_client.set_generation_model(model_id=settings.GENERATION_MODEL)
-
+    app.suggest_client = llm_provider_factory.create(provider=settings.GENERATION_PROVIDER)
+    app.suggest_client.set_generation_model(model_id = settings.GENERATION_MODEL)
     app.template_parser = TemplateParser(
         language=settings.PRIMARY_LANG,
         default_language=settings.DEFAULT_LANG
@@ -37,4 +38,4 @@ app = FastAPI(lifespan=lifespan)
 
 app.include_router(data_router)
 app.include_router(base_router)
-
+app.include_router(suggestion_router)
